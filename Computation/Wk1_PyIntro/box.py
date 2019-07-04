@@ -12,18 +12,30 @@ def isvalid(roll, remaining):
     Check to see whether or not a roll is valid. That is, check if there
     exists a combination of the entries of 'remaining' that sum up to
     'roll'.
+<<<<<<< HEAD
+=======
+
+>>>>>>> upstream/master
     Parameters:
         roll (int): The value of a dice roll, between 2 and 12
                     (inclusive).
         remaining (list): The list of the numbers that still need to be
                           removed before the box can be shut.
+<<<<<<< HEAD
+=======
+
+>>>>>>> upstream/master
     Returns:
         True if the roll is valid.
         False if the roll is invalid.
     '''
     if roll not in range(2, 13):
         return False
+<<<<<<< HEAD
     for i in range(1, len(remaining) + 1):
+=======
+    for i in xrange(1, len(remaining) + 1):
+>>>>>>> upstream/master
         if any([sum(combo) == roll for combo in combinations(remaining, i)]):
             return True
     return False
@@ -32,11 +44,19 @@ def isvalid(roll, remaining):
 def parse_input(player_input, remaining):
     """Convert a string of numbers into a list of unique integers, if possible.
     Then check that each of those integers is an entry in the other list.
+<<<<<<< HEAD
+=======
+
+>>>>>>> upstream/master
     Parameters:
         player_input (str): A string of integers, separated by spaces.
             The player's choices for which numbers to remove.
         remaining (list): The list of the numbers that still need to be
             removed before the box can be shut.
+<<<<<<< HEAD
+=======
+
+>>>>>>> upstream/master
     Returns:
         A list of the integers if the input was valid.
         An empty list if the input was invalid.
@@ -49,4 +69,8 @@ def parse_input(player_input, remaining):
             raise ValueError
         return choices
     except ValueError:
+<<<<<<< HEAD
         return []
+=======
+        return []
+>>>>>>> upstream/master
