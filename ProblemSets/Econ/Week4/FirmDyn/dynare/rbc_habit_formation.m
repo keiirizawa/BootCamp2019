@@ -17,7 +17,7 @@ dseries('initialize');
 % Define global variables.
 global M_ options_ oo_ estim_params_ bayestopt_ dataset_ dataset_info estimation_info ys0_ ex0_
 options_ = [];
-M_.fname = 'rbcModel';
+M_.fname = 'rbc_habit_formation';
 M_.dynare_version = '4.5.4';
 oo_.dynare_version = '4.5.4';
 options_.dynare_version = '4.5.4';
@@ -26,7 +26,7 @@ options_.dynare_version = '4.5.4';
 %
 global_initialization;
 diary off;
-diary('rbcModel.log');
+diary('rbc_habit_formation.log');
 M_.exo_names = 'e';
 M_.exo_names_tex = 'e';
 M_.exo_names_long = 'e';
@@ -88,6 +88,9 @@ M_.param_names_long = char(M_.param_names_long, 'cchi');
 M_.param_names = char(M_.param_names, 'l_ss');
 M_.param_names_tex = char(M_.param_names_tex, 'l\_ss');
 M_.param_names_long = char(M_.param_names_long, 'l_ss');
+M_.param_names = char(M_.param_names, 'bb');
+M_.param_names_tex = char(M_.param_names_tex, 'bb');
+M_.param_names_long = char(M_.param_names_long, 'bb');
 M_.param_names = char(M_.param_names, 'aalpha');
 M_.param_names_tex = char(M_.param_names_tex, 'aalpha');
 M_.param_names_long = char(M_.param_names_long, 'aalpha');
@@ -104,7 +107,7 @@ M_.param_partitions = struct();
 M_.exo_det_nbr = 0;
 M_.exo_nbr = 1;
 M_.endo_nbr = 14;
-M_.param_nbr = 9;
+M_.param_nbr = 10;
 M_.orig_endo_nbr = 14;
 M_.aux_vars = [];
 M_.Sigma_e = zeros(1, 1);
@@ -117,8 +120,8 @@ options_.block=0;
 options_.bytecode=0;
 options_.use_dll=0;
 M_.hessian_eq_zero = 0;
-erase_compiled_function('rbcModel_static');
-erase_compiled_function('rbcModel_dynamic');
+erase_compiled_function('rbc_habit_formation_static');
+erase_compiled_function('rbc_habit_formation_dynamic');
 M_.orig_eq_nbr = 14;
 M_.eq_nbr = 14;
 M_.ramsey_eq_nbr = 0;
@@ -157,7 +160,7 @@ oo_.steady_state = zeros(14, 1);
 M_.maximum_exo_lag = 0;
 M_.maximum_exo_lead = 0;
 oo_.exo_steady_state = zeros(1, 1);
-M_.params = NaN(9, 1);
+M_.params = NaN(10, 1);
 M_.NNZDerivatives = [37; 28; -1];
 close all
 M_.params( 1 ) = 0.99;
@@ -168,19 +171,19 @@ M_.params( 5 ) = 0.3333333333333333;
 l_ss = M_.params( 5 );
 M_.params( 3 ) = 0.5;
 eeta = M_.params( 3 );
-M_.params( 6 ) = 0.5;
-aalpha = M_.params( 6 );
-M_.params( 7 ) = 0.025;
-ddelta = M_.params( 7 );
-M_.params( 8 ) = 0.95;
-rrho = M_.params( 8 );
-M_.params( 9 ) = 0.007;
-ssigma = M_.params( 9 );
+M_.params( 7 ) = 0.5;
+aalpha = M_.params( 7 );
+M_.params( 8 ) = 0.025;
+ddelta = M_.params( 8 );
+M_.params( 9 ) = 0.95;
+rrho = M_.params( 9 );
+M_.params( 10 ) = 0.007;
+ssigma = M_.params( 10 );
 %
 % SHOCKS instructions
 %
 M_.exo_det_length = 0;
-M_.Sigma_e(1, 1) = M_.params(9)^2;
+M_.Sigma_e(1, 1) = M_.params(10)^2;
 steady;
 oo_.dr.eigval = check(M_,options_,oo_);
 options_.hp_filter = 1600;
@@ -188,24 +191,24 @@ options_.irf = 80;
 options_.order = 2;
 var_list_ = char('logY','logC','logI','logL','logW','r_annual');
 info = stoch_simul(var_list_);
-save('rbcModel_results.mat', 'oo_', 'M_', 'options_');
+save('rbc_habit_formation_results.mat', 'oo_', 'M_', 'options_');
 if exist('estim_params_', 'var') == 1
-  save('rbcModel_results.mat', 'estim_params_', '-append');
+  save('rbc_habit_formation_results.mat', 'estim_params_', '-append');
 end
 if exist('bayestopt_', 'var') == 1
-  save('rbcModel_results.mat', 'bayestopt_', '-append');
+  save('rbc_habit_formation_results.mat', 'bayestopt_', '-append');
 end
 if exist('dataset_', 'var') == 1
-  save('rbcModel_results.mat', 'dataset_', '-append');
+  save('rbc_habit_formation_results.mat', 'dataset_', '-append');
 end
 if exist('estimation_info', 'var') == 1
-  save('rbcModel_results.mat', 'estimation_info', '-append');
+  save('rbc_habit_formation_results.mat', 'estimation_info', '-append');
 end
 if exist('dataset_info', 'var') == 1
-  save('rbcModel_results.mat', 'dataset_info', '-append');
+  save('rbc_habit_formation_results.mat', 'dataset_info', '-append');
 end
 if exist('oo_recursive_', 'var') == 1
-  save('rbcModel_results.mat', 'oo_recursive_', '-append');
+  save('rbc_habit_formation_results.mat', 'oo_recursive_', '-append');
 end
 
 
